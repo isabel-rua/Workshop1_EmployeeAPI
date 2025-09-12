@@ -14,19 +14,35 @@ builder.Services.AddSwaggerGen();
 //Inyectar conexión con la BD
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 
+builder.Services.AddTransient<SeedDb>();
+
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//Luego de crear la app, se inyecata llamando el método SeedData que recibe la app (WebApplication)
+SeedData(app);
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
-app.Run();
+void SeedData(WebApplication app)
+{
+    //scopedFactory es la forma de llamar las direcciones de los servicios
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    //Con esto se garantiza que cada que se corra el programa se ejecute el método SeedAsync de la clase SeedDb
+    using var scope = scopedFactory!.CreateScope();
+    var service = scope.ServiceProvider.GetService<SeedDb>();
+    service!.SeedAsync().Wait(); //Es .Wait porque se llama un método async desde un método que no es async
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+    app.Run();
+}

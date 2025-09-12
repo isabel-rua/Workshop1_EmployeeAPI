@@ -31,7 +31,7 @@ public class Employee
 
     [Display(Name = "Salario")]
     [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-    [Range(1_000_000, double.MaxValue, ErrorMessage = "El salario debe ser al menos {1}.")]
+    [Range(1_000_000, double.MaxValue, ErrorMessage = "El salario debe ser mínimo {1}.")]
     [Column(TypeName = "decimal(18,2)")]
     public decimal Salary { get; set; }
 }
