@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Workshop1.Backend.Data;
+using Workshop1.Backend.Repositories.Implementations;
+using Workshop1.Backend.Repositories.Interfaces;
+using Workshop1.Backend.UnitsOfWork.Implementations;
+using Workshop1.Backend.UnitsOfWork.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,9 @@ builder.Services.AddSwaggerGen();
 
 //Inyectar conexión con la BD
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
+
+builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 
