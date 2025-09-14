@@ -6,11 +6,8 @@ namespace Workshop1.Backend.UnitsOfWork.Implementations
 {
     public class GenericUnitOfWork<T> : IGenericUnitOfWork<T> where T : class
     {
-        //Se le inyecta el repositorio genérico
-
         private readonly IGenericRepository<T> _repository;
 
-        //Constructor
         public GenericUnitOfWork(IGenericRepository<T> repository)
         {
             _repository = repository;

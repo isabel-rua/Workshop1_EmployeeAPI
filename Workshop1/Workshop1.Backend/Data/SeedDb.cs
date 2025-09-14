@@ -4,32 +4,23 @@ namespace Workshop1.Backend.Data;
 
 public class SeedDb
 {
-    //Esta clase es un alimentador de datos (seeder).
-    //Esta clase se encarga de inicializar y poblar la base de datos con datos predeterminados.
+    private readonly DataContext _context;
 
-    //Inyectar la conexión a la base de datos
-    //Para que la inyección permanezca durante todo el ciclo de vida de la app se crea propiedad
-    private readonly DataContext _context; //_context es un campo de la clase estandar
-
-    public SeedDb(DataContext context) //Con lo que esta () se inyecta el contexto de la bd
+    public SeedDb(DataContext context)
     {
         _context = context;
     }
 
-    //Método SeedAsync para garantizar que la BD exista y cree registros
     public async Task SeedAsync()
     {
-        await _context.Database.EnsureCreatedAsync(); //Asegura que la BD exista, si no existe, se crea la BD.
+        await _context.Database.EnsureCreatedAsync();
 
-        //Estos 2 métodos son para garantizar que existan los países y las categorías en la BD.
         await CheckEmployeeAsync();
     }
 
-    //Métodos privados para verificar y agregar categorías y países
-
     private async Task CheckEmployeeAsync()
     {
-        if (!_context.Employees.Any()) //Método Any = alguna, se niega condición (!) "Si no hay empleados"
+        if (!_context.Employees.Any())
         {
             _context.Employees.Add(new Employee
             {
@@ -120,7 +111,7 @@ public class SeedDb
                 HireDate = new DateTime(2022, 08, 10, 8, 0, 0),
                 Salary = 1_200_000
             });
-            await _context.SaveChangesAsync(); //Guardar los cambios
+            await _context.SaveChangesAsync();
         }
     }
 }

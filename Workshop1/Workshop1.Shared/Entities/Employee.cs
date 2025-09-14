@@ -7,15 +7,10 @@ public class Employee
 {
     public int Id { get; set; }
 
-    //Display para mostrar al usuario el nombre como uno quiere "decorado"
     [Display(Name = "Nombre")]
-
-    //MaxLength para limitar la cantidad de caractéres que puede tener el campo
     [MaxLength(30, ErrorMessage = "El campo {0} no puede tener más de {1} caractéres.")]
-
-    // Required para que el campo sea obligatorio
     [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-    public string FirstName { get; set; } = null!; //Condición null! es para no permitir null en ese campo
+    public string FirstName { get; set; } = null!;
 
     [Display(Name = "Apellido")]
     [MaxLength(30, ErrorMessage = "El campo {0} no puede tener más de {1} caractéres.")]
@@ -26,7 +21,7 @@ public class Employee
     public bool IsActive { get; set; }
 
     [Display(Name = "Fecha de Contratación")]
-    [DataType(DataType.DateTime)] // Indica que el campo debe mostrar fecha y hora
+    [DataType(DataType.DateTime)]
     public DateTime HireDate { get; set; }
 
     [Display(Name = "Salario")]

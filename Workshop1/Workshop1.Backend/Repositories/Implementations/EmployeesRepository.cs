@@ -15,13 +15,10 @@ public class EmployeesRepository : GenericRepository<Employee>, IEmployeesReposi
         _context = context;
     }
 
-    // Búsqueda por cadena en nombre o apellido (case-insensitive y coincidencia parcial)
     public async Task<ActionResponse<IEnumerable<Employee>>> GetAsync(string filter)
     {
-        //Normalizar texto, Evita null y quita espacios.
         filter = (filter ?? string.Empty).Trim();
 
-        // Patrón para búsqueda parcial (LIKE %filter%)
         var search = $"%{filter}%";
 
         var result = await _context.Employees

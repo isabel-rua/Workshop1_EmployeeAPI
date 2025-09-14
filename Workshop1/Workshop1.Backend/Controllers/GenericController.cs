@@ -5,16 +5,12 @@ namespace Workshop1.Backend.Controllers;
 
 public class GenericController<T> : Controller where T : class
 {
-    //Iyectar el UnitOfWork genérico
     private readonly IGenericUnitOfWork<T> _unitOfWork;
 
-    //Constructor
     public GenericController(IGenericUnitOfWork<T> unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
-
-    //Implementar todos los métodos del CRUD
 
     [HttpGet]
     public virtual async Task<IActionResult> GetAsync()
@@ -22,9 +18,9 @@ public class GenericController<T> : Controller where T : class
         var action = await _unitOfWork.GetAsync();
         if (action.WasSuccess)
         {
-            return Ok(action.Result);//Devuelve un código 200 con la lista de objetos
+            return Ok(action.Result);
         }
-        return BadRequest(action.Message); //Devuelve un error 400 (error genérico) con el mensaje de error
+        return BadRequest(action.Message);
     }
 
     [HttpGet("{id}")]
@@ -35,7 +31,7 @@ public class GenericController<T> : Controller where T : class
         {
             return Ok(action.Result);
         }
-        return NotFound(); //Devuelve un error 404 (no encontrado)
+        return NotFound();
     }
 
     [HttpPost]
@@ -66,7 +62,7 @@ public class GenericController<T> : Controller where T : class
         var action = await _unitOfWork.DeleteAsync(id);
         if (action.WasSuccess)
         {
-            return NoContent(); //Devuelve un código 204 (No Content) cuando la eliminación es exitosa
+            return NoContent();
         }
         return BadRequest(action.Message);
     }
