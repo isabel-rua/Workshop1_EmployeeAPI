@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Workshop1.Shared\Workshop1.Shared.csproj" />
+    <ProjectReference Include="..\Workshops.Shared\Workshops.Shared.csproj" />
   </ItemGroup>
 
 </Project>
