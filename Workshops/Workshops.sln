@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36408.4 d17.14
+VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshops.Backend", "Workshops.Backend\Workshops.Backend.csproj", "{00E154CE-422D-B3D8-C997-E6DCCBAA0931}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshops.Shared", "Workshops.Shared\Workshops.Shared.csproj", "{0886EDD1-49B4-1D78-46F4-16B6A79C69E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshops.Frontend", "Workshops.Frontend\Workshops.Frontend.csproj", "{A8AB05B6-C64D-B52B-BD2D-67DD1E5C13A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0886EDD1-49B4-1D78-46F4-16B6A79C69E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0886EDD1-49B4-1D78-46F4-16B6A79C69E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0886EDD1-49B4-1D78-46F4-16B6A79C69E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8AB05B6-C64D-B52B-BD2D-67DD1E5C13A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8AB05B6-C64D-B52B-BD2D-67DD1E5C13A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8AB05B6-C64D-B52B-BD2D-67DD1E5C13A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8AB05B6-C64D-B52B-BD2D-67DD1E5C13A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
