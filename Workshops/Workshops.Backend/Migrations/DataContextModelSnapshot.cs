@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Workshop1.Backend.Data;
+using Workshops.Backend.Data;
 
 #nullable disable
 
-namespace Workshop1.Backend.Migrations
+namespace Workshops.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -57,3 +57,4 @@ namespace Workshop1.Backend.Migrations
         }
     }
 }
+

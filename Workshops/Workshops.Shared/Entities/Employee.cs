@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Workshop1.Shared.Entities;
+namespace Workshops.Shared.Entities;
 
 public class Employee
 {
@@ -30,3 +30,4 @@ public class Employee
     [Column(TypeName = "decimal(18,2)")]
     public decimal Salary { get; set; }
 }
+

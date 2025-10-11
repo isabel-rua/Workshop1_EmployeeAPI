@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Workshop1.Shared.Entities;
+using Workshops.Shared.Entities;
 
-namespace Workshop1.Backend.Data;
+namespace Workshops.Backend.Data;
 
 public class DataContext : DbContext
 {
@@ -11,3 +11,4 @@ public class DataContext : DbContext
 
     public DbSet<Employee> Employees { get; set; }
 }
+

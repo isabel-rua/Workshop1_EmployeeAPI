@@ -1,8 +1,9 @@
-﻿using Workshop1.Backend.Repositories.Interfaces;
-using Workshop1.Backend.UnitsOfWork.Interfaces;
-using Workshop1.Shared.Responses;
+﻿using Workshops.Backend.Repositories.Interfaces;
+using Workshops.Backend.UnitsOfWork.Interfaces;
+using Workshops.Shared.DTOs;
+using Workshops.Shared.Responses;
 
-namespace Workshop1.Backend.UnitsOfWork.Implementations
+namespace Workshops.Backend.UnitsOfWork.Implementations
 {
     public class GenericUnitOfWork<T> : IGenericUnitOfWork<T> where T : class
     {
@@ -12,6 +13,12 @@ namespace Workshop1.Backend.UnitsOfWork.Implementations
         {
             _repository = repository;
         }
+
+        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination) => await
+            _repository.GetAsync(pagination);
+
+        public virtual async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await
+            _repository.GetTotalRecordsAsync(pagination);
 
         public virtual async Task<ActionResponse<T>> AddAsync(T entity) => await _repository.AddAsync(entity);
 

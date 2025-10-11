@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Workshop1.Backend.Data;
+using Workshops.Backend.Data;
 
 #nullable disable
 
-namespace Workshop1.Backend.Migrations
+namespace Workshops.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20250909053140_InitialDb")]
@@ -60,3 +60,4 @@ namespace Workshop1.Backend.Migrations
         }
     }
 }
+

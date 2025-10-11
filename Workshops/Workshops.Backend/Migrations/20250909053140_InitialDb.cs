@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Workshop1.Backend.Migrations
+namespace Workshops.Backend.Migrations
 {
     /// <inheritdoc />
     public partial class InitialDb : Migration
@@ -37,3 +37,4 @@ namespace Workshop1.Backend.Migrations
         }
     }
 }
+

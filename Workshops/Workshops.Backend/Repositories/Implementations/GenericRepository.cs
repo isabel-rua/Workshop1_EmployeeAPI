@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Workshop1.Backend.Data;
-using Workshop1.Backend.Repositories.Interfaces;
-using Workshop1.Shared.Responses;
+using Workshops.Backend.Data;
+using Workshops.Backend.Helpers;
+using Workshops.Backend.Repositories.Interfaces;
+using Workshops.Shared.DTOs;
+using Workshops.Shared.Responses;
 
-namespace Workshop1.Backend.Repositories.Implementations;
+namespace Workshops.Backend.Repositories.Implementations;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
@@ -15,6 +17,30 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         _context = context;
         _entity = _context.Set<T>();
+    }
+
+    public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination)
+    {
+        var queryable = _entity.AsQueryable();
+
+        return new ActionResponse<IEnumerable<T>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .Paginate(pagination)
+                .ToListAsync()
+        };
+    }
+
+    public virtual async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
+    {
+        var queryable = _entity.AsQueryable();
+        double count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = (int)count
+        };
     }
 
     public virtual async Task<ActionResponse<T>> AddAsync(T entity)

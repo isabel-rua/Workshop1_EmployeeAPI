@@ -1,4 +1,4 @@
-using MudBlazor.Services;
+﻿using MudBlazor.Services;
 using Workshops.Frontend.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,3 +30,4 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
