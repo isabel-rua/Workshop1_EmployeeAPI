@@ -1,9 +1,14 @@
-﻿using Workshop1.Shared.Responses;
+﻿using Workshops.Shared.DTOs;
+using Workshops.Shared.Responses;
 
-namespace Workshop1.Backend.UnitsOfWork.Interfaces;
+namespace Workshops.Backend.UnitsOfWork.Interfaces;
 
 public interface IGenericUnitOfWork<T> where T : class
 {
+    Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination);
+
+    Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
+
     Task<ActionResponse<T>> GetAsync(int id);
 
     Task<ActionResponse<IEnumerable<T>>> GetAsync();

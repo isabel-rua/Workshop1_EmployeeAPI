@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Workshop1.Backend.UnitsOfWork.Interfaces;
+using Workshops.Backend.UnitsOfWork.Interfaces;
+using Workshops.Shared.DTOs;
 
-namespace Workshop1.Backend.Controllers;
+namespace Workshops.Backend.Controllers;
 
 public class GenericController<T> : Controller where T : class
 {
@@ -10,6 +11,28 @@ public class GenericController<T> : Controller where T : class
     public GenericController(IGenericUnitOfWork<T> unitOfWork)
     {
         _unitOfWork = unitOfWork;
+    }
+
+    [HttpGet("paginated")]
+    public virtual async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
+    {
+        var action = await _unitOfWork.GetAsync(pagination);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("totalRecords")]
+    public virtual async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
+    {
+        var action = await _unitOfWork.GetTotalRecordsAsync(pagination);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest();
     }
 
     [HttpGet]

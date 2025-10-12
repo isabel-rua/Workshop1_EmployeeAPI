@@ -1,4 +1,4 @@
-﻿namespace Workshop1.Shared.Responses;
+﻿namespace Workshops.Shared.Responses;
 
 public class ActionResponse<T>
 {
@@ -8,3 +8,4 @@ public class ActionResponse<T>
 
     public T? Result { get; set; }
 }
+

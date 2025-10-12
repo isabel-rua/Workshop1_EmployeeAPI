@@ -1,6 +1,7 @@
-﻿using Workshop1.Shared.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Workshops.Shared.Entities;
 
-namespace Workshop1.Backend.Data;
+namespace Workshops.Backend.Data;
 
 public class SeedDb
 {
@@ -15,7 +16,17 @@ public class SeedDb
     {
         await _context.Database.EnsureCreatedAsync();
 
+        await CheckEmployeesFullAsync();
         await CheckEmployeeAsync();
+    }
+
+    private async Task CheckEmployeesFullAsync()
+    {
+        if (!_context.Employees.Any())
+        {
+            var employeesSQLScript = File.ReadAllText("Data\\Employees.sql");
+            await _context.Database.ExecuteSqlRawAsync(employeesSQLScript);
+        }
     }
 
     private async Task CheckEmployeeAsync()

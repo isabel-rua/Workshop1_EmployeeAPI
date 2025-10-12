@@ -1,9 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using Workshop1.Backend.Data;
-using Workshop1.Backend.Repositories.Implementations;
-using Workshop1.Backend.Repositories.Interfaces;
-using Workshop1.Backend.UnitsOfWork.Implementations;
-using Workshop1.Backend.UnitsOfWork.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Workshops.Backend.Data;
+using Workshops.Backend.Repositories.Implementations;
+using Workshops.Backend.Repositories.Interfaces;
+using Workshops.Backend.UnitsOfWork.Implementations;
+using Workshops.Backend.UnitsOfWork.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,3 +44,4 @@ void SeedData(WebApplication app)
     app.MapControllers();
     app.Run();
 }
+

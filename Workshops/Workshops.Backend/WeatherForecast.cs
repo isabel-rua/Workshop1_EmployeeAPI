@@ -1,4 +1,4 @@
-namespace Workshop1.Backend
+﻿namespace Workshops.Backend
 {
     public class WeatherForecast
     {
@@ -11,3 +11,4 @@ namespace Workshop1.Backend
         public string? Summary { get; set; }
     }
 }
+

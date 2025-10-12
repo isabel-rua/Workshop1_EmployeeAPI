@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Workshop1.Backend.UnitsOfWork.Interfaces;
-using Workshop1.Shared.Entities;
+using Workshops.Backend.UnitsOfWork.Interfaces;
+using Workshops.Shared.DTOs;
+using Workshops.Shared.Entities;
 
-namespace Workshop1.Backend.Controllers;
+namespace Workshops.Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -14,6 +15,28 @@ public class EmployeesController : GenericController<Employee>
         IEmployeesUnitOfWork employeesUnitOfWork) : base(unitOfWork)
     {
         _employeesUnitOfWork = employeesUnitOfWork;
+    }
+
+    [HttpGet("totalRecords")]
+    public override async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
+    {
+        var action = await _employeesUnitOfWork.GetTotalRecordsAsync(pagination);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("paginated")]
+    public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
+    {
+        var response = await _employeesUnitOfWork.GetAsync(pagination);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
     }
 
     [HttpGet("search/{filter}")]
