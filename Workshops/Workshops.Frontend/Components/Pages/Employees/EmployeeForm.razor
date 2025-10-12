@@ -14,18 +14,15 @@
                   Class="mb-4" />
 
     <MudSwitch T="bool"
-               @bind-Checked="Employee.IsActive"
+               @bind-Value="Employee.IsActive"
                Class="mb-4">
         ¿Está activo?
     </MudSwitch>
 
-    <MudDatePicker T="DateTime?"
-                   Label="Fecha de ingreso"
-                   Date="@((DateTime?)Employee.HireDate)"
-                   DateChanged="@(d => Employee.HireDate = d ?? default)"
-                   For="@(() => Employee.HireDate)"
+    <MudDatePicker Label="Fecha de ingreso"
+                   Date="Employee.HireDate"
+                   DateChanged="@((DateTime? date) => Employee.HireDate = date ?? DateTime.Today)"
                    Class="mb-4" />
-
 
     <MudNumericField T="decimal"
                      Label="Salario"

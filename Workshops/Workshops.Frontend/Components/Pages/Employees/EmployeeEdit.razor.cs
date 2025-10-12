@@ -23,7 +23,7 @@ public partial class EmployeeEdit
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                NavigationManager.NavigateTo("employees");
+                NavigationManager.NavigateTo("/employees");
             }
             else
             {

@@ -11,7 +11,7 @@ public partial class EmployeeCreate
     {
         IsActive = true,
         HireDate = DateTime.Today,
-        Salary = 0m
+        Salary = 1_000_000m
     };
 
     [Inject] private IRepository Repository { get; set; } = null!;
