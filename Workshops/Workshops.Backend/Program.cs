@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 using Workshops.Backend.Data;
 using Workshops.Backend.Repositories.Implementations;
 using Workshops.Backend.Repositories.Interfaces;
@@ -7,31 +8,45 @@ using Workshops.Backend.UnitsOfWork.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
+var connStr = builder.Configuration.GetConnectionString("LocalConnection");
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(
+        connStr,
+        sql => sql.CommandTimeout(600)
+    )
+);
 
 builder.Services.AddTransient<SeedDb>();
 
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+builder.Services.AddScoped<ICitiesRepository, CitiesRepository>();
+builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 builder.Services.AddScoped<IEmployeesRepository, EmployeesRepository>();
+builder.Services.AddScoped<IStatesRepository, StatesRepository>();
+
+builder.Services.AddScoped<ICitiesUnitOfWork, CitiesUnitOfWork>();
+builder.Services.AddScoped<ICountriesUnitOfWork, CountriesUnitOfWork>();
 builder.Services.AddScoped<IEmployeesUnitOfWork, EmployeesUnitOfWork>();
+builder.Services.AddScoped<IStatesUnitOfWork, StatesUnitOfWork>();
 
 var app = builder.Build();
 
-SeedData(app);
+await SeedDataAsync(app);
 
-void SeedData(WebApplication app)
+static async Task SeedDataAsync(WebApplication app)
 {
     var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
 
     using var scope = scopedFactory!.CreateScope();
     var service = scope.ServiceProvider.GetService<SeedDb>();
-    service!.SeedAsync().Wait();
+    await service!.SeedAsync();
 
     if (app.Environment.IsDevelopment())
     {
@@ -44,4 +59,3 @@ void SeedData(WebApplication app)
     app.MapControllers();
     app.Run();
 }
-
