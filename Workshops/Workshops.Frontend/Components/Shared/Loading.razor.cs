@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Workshops.Frontend.Components.Shared
 {
-    public partial class Loanding
+    public partial class Loading
     {
         [Parameter] public string? Label { get; set; }
 
