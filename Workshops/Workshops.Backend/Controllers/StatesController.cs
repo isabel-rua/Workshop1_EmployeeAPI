@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Workshops.Backend.UnitsOfWork.Interfaces;
 using Workshops.Shared.DTOs;
 using Workshops.Shared.Entities;
@@ -6,6 +8,7 @@ using Workshops.Shared.Entities;
 namespace Workshops.Backend.Controllers;
 
 [ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/[controller]")]
 public class StatesController : GenericController<State>
 {

@@ -1,15 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Workshops.Backend.UnitsOfWork.Implementations;
+using Workshops.Backend.UnitsOfWork.Interfaces;
 using Workshops.Shared.Entities;
+using Workshops.Shared.Enums;
 
 namespace Workshops.Backend.Data;
 
 public class SeedDb
 {
     private readonly DataContext _context;
+    private readonly IUsersUnitOfWork _usersUnitOfWork;
 
-    public SeedDb(DataContext context)
+    public SeedDb(DataContext context, IUsersUnitOfWork usersUnitOfWork)
     {
         _context = context;
+        _usersUnitOfWork = usersUnitOfWork;
     }
 
     public async Task SeedAsync()
@@ -20,6 +25,9 @@ public class SeedDb
         await CheckCountriesAsync();
         await CheckEmployeesFullAsync();
         await CheckEmployeeAsync();
+        await CheckRolesAsync();
+        await CheckUserAsync("1010", "Isabel", "Rua", "IsabelRua@yopmail.com", "322 311 4620", "Calle Luna Calle Sol",
+                             UserType.Admin);
     }
 
     private async Task CheckCountriesFullAsync()
@@ -199,5 +207,37 @@ public class SeedDb
             });
             await _context.SaveChangesAsync();
         }
+    }
+
+    private async Task CheckRolesAsync()
+    {
+        await _usersUnitOfWork.CheckRoleAsync(UserType.Admin.ToString());
+        await _usersUnitOfWork.CheckRoleAsync(UserType.User.ToString());
+    }
+
+    private async Task<User> CheckUserAsync(string document, string firstName, string lastName, string email, string
+    phone, string address, UserType userType)
+    {
+        var user = await _usersUnitOfWork.GetUserAsync(email);
+        if (user == null)
+        {
+            user = new User
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                UserName = email,
+                PhoneNumber = phone,
+                Address = address,
+                Document = document,
+                City = _context.Cities.FirstOrDefault(),
+                UserType = userType,
+            };
+
+            await _usersUnitOfWork.AddUserAsync(user, "123456");
+            await _usersUnitOfWork.AddUserToRoleAsync(user, userType.ToString());
+        }
+
+        return user;
     }
 }
